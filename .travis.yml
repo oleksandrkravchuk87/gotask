@@ -1,0 +1,20 @@
+language: go
+
+go:
+  - 1.x
+  - 1.6
+  - 1.7.x
+  - master
+
+before_install:
+  - cp .netrc ~
+  - chmod 600 .netrc
+
+  script: go test ./...
+
+ gobuild_args: -x -ldflags "-X main.VersionString v1.2.3"
+script: scons
+deploy:
+  ...
+  on:
+    condition: $TRAVIS_GO_VERSION =~ ^1\.7\.[0-9]+$
